@@ -26,8 +26,7 @@ $("#submitBtn").on("click", function(addMovie) {
 	$("#formInput").val("");
 	});
 
-// this displays the gifs when you click on a movie title, but there's bug that prevents them from clicking and rendering properly when the user adds a new button
-$(".movieButton").on("click", function() {
+// this displays the gifs when you click on a movie title
 	movieTitle = $(this).attr("data-name");
 	// console.log(movieTitle);
 	$("#giphyDiv").empty();
@@ -70,7 +69,7 @@ function getGiphy(i, title) {
 };
 
 // This enables animation when the user clicks on the gif image, but there's a bug in the event listener.
-$(".gifImage").on("click", function() {
+$(document.body).on('click', '.gifImage', function() {
 	console.log("something was clicked");
 	var state = $(this).attr("data-state");
 	if (state === "still") {

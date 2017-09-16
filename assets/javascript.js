@@ -1,8 +1,9 @@
 console.log("JavaScript is loaded")
 $(document).ready(function(){
 
-var movies = ["Toy Story", "The Lion King", "The Incredibles", "Moana", "Inside Out"];
+var movies = ["Toy Story", "Zootopia", "The Incredibles", "The Lion King", "Aladdin", "Moana", "Inside Out"];
 var movieTitle = "";
+renderButtons();
 
 function renderButtons() {
 	$("#buttonDiv").empty();
@@ -16,19 +17,7 @@ function renderButtons() {
 		};
 	};
 
-renderButtons();
-
-$(".movieButton").on("click", function() {
-	movieTitle = $(this).attr("data-name");
-	console.log(movieTitle);
-	$("#giphyDiv").html("");
-	for (i=0; i<10; i++) {
-		// console.log(i);
-		getGiphy(i, movieTitle);
-	};
-});
-
-
+// this generates a new button from form entry and then clears the form
 $("#submitBtn").on("click", function(addMovie) {
 	event.preventDefault();
 	var newMovie = $("#formInput").val().trim();
@@ -37,6 +26,20 @@ $("#submitBtn").on("click", function(addMovie) {
 	$("#formInput").val("");
 	});
 
+// this displays the gifs when you click on a movie title, but there's bug that prevents them from clicking and rendering properly when the user adds a new button
+$(".movieButton").on("click", function() {
+	movieTitle = $(this).attr("data-name");
+	// console.log(movieTitle);
+	$("#giphyDiv").empty();
+	for (i=0; i<10; i++) {
+		// console.log(i);
+		getGiphy(i, movieTitle);
+	};
+});
+
+
+// var still = "";
+// var animate = "";
 
 function getGiphy(i, title) {
 	// var title = $(this).attr("data-name");
@@ -45,26 +48,39 @@ function getGiphy(i, title) {
       url: queryURL,
       method: "GET"
     	}).done(function(response) {
-    		var still = response.data[i].images.fixed_width_still.url
+    		var still = response.data[i].images.fixed_width_still.url;
+    		var animate = response.data[i].images.looping.mp4;
     		// console.log(still);
+    		// console.log(animate);
     		var gifDiv = $("<div class='gifs panel panel-info'>");
     		var rating = response.data[i].rating;
     		var display = $("<p>").text("Rating: " + rating);
     		var labelNum = i + 1;
     		var label = $("<h4>").text(title + " Gif #" + labelNum);
-    		label.addClass("btn btn-info")
- 	    	var stillImage = $("<img>").attr("src", still);
+ 	    	var stillImage = $("<img>");
+ 	    	stillImage.attr({"data-still":still, "data-animate":animate, "data-state":"still", "src":still, "id":title+"label"+i});
+ 	    	stillImage.addClass("btn btn-default gifImage");
     		gifDiv.append(label); 	    	   		
     		gifDiv.append(display);
     		gifDiv.append(stillImage);
     		gifDiv.attr("id", "gif" + i);
-    		gifDiv.css({"width":"220px", "display":"inline-grid", "margin":"10px", "padding":"10px", "text-align":"center"})
+    		gifDiv.css({"width":"250px", "display":"inline-grid", "margin":"10px", "padding":"10px", "text-align":"center"})
     		$("#giphyDiv").append(gifDiv);
 	});
 };
 
-
-
+// This enables animation when the user clicks on the gif image, but there's a bug in the event listener.
+$("gifImage").click(function() {
+	console.log("something was clicked");
+	// var state = $(this).attr("data-state");
+	// if (state === "still") {
+	//   $(this).attr("src", $(this).attr("data-animate"));
+	//   $(this).attr("data-state", "animate");
+	// } else {
+	//   $(this).attr("src", $(this).attr("data-still"));
+	//   $(this).attr("data-state", "still");
+	// }
+});
 
 
 

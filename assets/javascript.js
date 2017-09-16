@@ -25,10 +25,9 @@ $("#submitBtn").on("click", function(addMovie) {
 	});
 
 
-function getGiphy() {
+function getGiphy(i) {
 	// var title = $(this).attr("data-name");
 	var title = "cinderella";
-	var i=0;
 	var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=w6skDb3bVpSH3akfsKjgt2h2jfKq4Iou&q=" + title + "&limit=10&offset=0&rating=G&lang=en";
     $.ajax({
       url: queryURL,
@@ -38,7 +37,6 @@ function getGiphy() {
     		console.log(still);
     		var gifDiv = $("<div class='gifs'>");
     		var rating = response.data[i].rating;
-    		console.log(rating);
     		var display = $("<p>").text("Rating: " + rating);
     		var labelNum = i + 1;
     		var label = $("<p>").text(title + " #" + labelNum);
@@ -51,7 +49,10 @@ function getGiphy() {
 	});
 };
 
-getGiphy();
+for (i=0; i<10; i++) {
+	console.log(i);
+	getGiphy(i);
+};
 
 //this closes the (document).ready function.  Do not delete!
 });

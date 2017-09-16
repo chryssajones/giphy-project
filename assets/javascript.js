@@ -70,16 +70,16 @@ function getGiphy(i, title) {
 };
 
 // This enables animation when the user clicks on the gif image, but there's a bug in the event listener.
-$("gifImage").click(function() {
+$(".gifImage").on("click", function() {
 	console.log("something was clicked");
-	// var state = $(this).attr("data-state");
-	// if (state === "still") {
-	//   $(this).attr("src", $(this).attr("data-animate"));
-	//   $(this).attr("data-state", "animate");
-	// } else {
-	//   $(this).attr("src", $(this).attr("data-still"));
-	//   $(this).attr("data-state", "still");
-	// }
+	var state = $(this).attr("data-state");
+	if (state === "still") {
+	  $(this).attr("src", $(this).attr("data-animate"));
+	  $(this).attr("data-state", "animate");
+	} else {
+	  $(this).attr("src", $(this).attr("data-still"));
+	  $(this).attr("data-state", "still");
+	}
 });
 
 

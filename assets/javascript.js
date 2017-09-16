@@ -2,6 +2,7 @@ console.log("JavaScript is loaded")
 $(document).ready(function(){
 
 var movies = ["Toy Story", "The Lion King", "The Incredibles", "Moana", "Inside Out"];
+var movieTitle = "";
 
 function renderButtons() {
 	$("#buttonDiv").empty();
@@ -16,6 +17,17 @@ function renderButtons() {
 	};
 
 renderButtons();
+
+$(".movieButton").on("click", function() {
+	movieTitle = $(this).attr("data-name");
+	console.log(movieTitle);
+	$("#giphyDiv").html("");
+	for (i=0; i<10; i++) {
+		// console.log(i);
+		getGiphy(i, movieTitle);
+	};
+});
+
 
 $("#submitBtn").on("click", function(addMovie) {
 	event.preventDefault();
@@ -34,13 +46,13 @@ function getGiphy(i, title) {
       method: "GET"
     	}).done(function(response) {
     		var still = response.data[i].images.fixed_width_still.url
-    		console.log(still);
+    		// console.log(still);
     		var gifDiv = $("<div class='gifs panel panel-info'>");
     		var rating = response.data[i].rating;
     		var display = $("<p>").text("Rating: " + rating);
     		var labelNum = i + 1;
     		var label = $("<h4>").text(title + " Gif #" + labelNum);
-    		label.addClass("panel panel-title panel-heading")
+    		label.addClass("btn btn-info")
  	    	var stillImage = $("<img>").attr("src", still);
     		gifDiv.append(label); 	    	   		
     		gifDiv.append(display);
@@ -51,10 +63,11 @@ function getGiphy(i, title) {
 	});
 };
 
-for (i=0; i<10; i++) {
-	console.log(i);
-	getGiphy(i, "Moana");
-};
+
+
+
+
+
 
 //this closes the (document).ready function.  Do not delete!
 });

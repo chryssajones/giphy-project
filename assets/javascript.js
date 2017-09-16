@@ -64,7 +64,7 @@ function getGiphy(i, title) {
     		gifDiv.append(display);
     		gifDiv.append(stillImage);
     		gifDiv.attr("id", "gif" + i);
-    		gifDiv.css({"width":"250px", "display":"inline-grid", "margin":"10px", "padding":"10px", "text-align":"center"})
+    		gifDiv.css({"width":"250px", "display":"inline-grid", "margin":"15px", "padding":"10px", "text-align":"center"})
     		$("#giphyDiv").append(gifDiv);
 	});
 };

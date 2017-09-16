@@ -22,36 +22,38 @@ $("#submitBtn").on("click", function(addMovie) {
 	var newMovie = $("#formInput").val().trim();
 	movies.push(newMovie);
 	renderButtons();
+	$("#formInput").val("");
 	});
 
 
-function getGiphy(i) {
+function getGiphy(i, title) {
 	// var title = $(this).attr("data-name");
-	var title = "cinderella";
 	var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=w6skDb3bVpSH3akfsKjgt2h2jfKq4Iou&q=" + title + "&limit=10&offset=0&rating=G&lang=en";
     $.ajax({
       url: queryURL,
       method: "GET"
     	}).done(function(response) {
-    		var still = response.data[i].images.fixed_height_still.url
+    		var still = response.data[i].images.fixed_width_still.url
     		console.log(still);
-    		var gifDiv = $("<div class='gifs'>");
+    		var gifDiv = $("<div class='gifs panel panel-info'>");
     		var rating = response.data[i].rating;
     		var display = $("<p>").text("Rating: " + rating);
     		var labelNum = i + 1;
-    		var label = $("<p>").text(title + " #" + labelNum);
+    		var label = $("<h4>").text(title + " Gif #" + labelNum);
+    		label.addClass("panel panel-title panel-heading")
  	    	var stillImage = $("<img>").attr("src", still);
     		gifDiv.append(label); 	    	   		
     		gifDiv.append(display);
     		gifDiv.append(stillImage);
     		gifDiv.attr("id", "gif" + i);
+    		gifDiv.css({"width":"220px", "display":"inline-grid", "margin":"10px", "padding":"10px", "text-align":"center"})
     		$("#giphyDiv").append(gifDiv);
 	});
 };
 
 for (i=0; i<10; i++) {
 	console.log(i);
-	getGiphy(i);
+	getGiphy(i, "Moana");
 };
 
 //this closes the (document).ready function.  Do not delete!

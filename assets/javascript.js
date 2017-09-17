@@ -1,7 +1,7 @@
 console.log("JavaScript is loaded")
 $(document).ready(function(){
 
-var movies = ["Toy Story", "Zootopia", "The Incredibles", "The Lion King", "Aladdin", "Moana", "Inside Out"];
+var movies = ["Toy Story", "Inside Out", "Mary Poppins", "The Lion King", "Aladdin","Star Wars"];
 var movieTitle = "";
 renderButtons();
 
@@ -69,18 +69,14 @@ function getGiphy(i, title) {
 
 // This enables animation when the user clicks on the gif image
 $(document.body).on('click', '.gifImage', function() {
-	console.log("something was clicked");
 	var t = $(this);	
 	var state = t.attr("data-state");
-	console.log(state);
-	console.log($(this).attr("src"));
-
 	if (state === "still") {
-	  $(this).attr("src", $(this).attr("data-animate"));
-	  $(this).attr("data-state", "animate");
+	  t.attr("src", t.attr("data-animate"));
+	  t.attr("data-state", "animate");
 	} else {
-	  $(this).attr("src", $(this).attr("data-still"));
-	  $(this).attr("data-state", "still");
+	  t.attr("src", t.attr("data-still"));
+	  t.attr("data-state", "still");
 	}
 });
 

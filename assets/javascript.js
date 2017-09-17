@@ -5,6 +5,7 @@ var movies = ["Toy Story", "Zootopia", "The Incredibles", "The Lion King", "Alad
 var movieTitle = "";
 renderButtons();
 
+// this creates the buttons
 function renderButtons() {
 	$("#buttonDiv").empty();
 	for (var i = 0; i < movies.length; i++) {
@@ -18,7 +19,7 @@ function renderButtons() {
 	};
 
 // this generates a new button from form entry and then clears the form
-$("#submitBtn").on("click", function(addMovie) {
+$(document.body).on('click', '#submitBtn', function() {
 	event.preventDefault();
 	var newMovie = $("#formInput").val().trim();
 	movies.push(newMovie);
@@ -27,6 +28,7 @@ $("#submitBtn").on("click", function(addMovie) {
 	});
 
 // this displays the gifs when you click on a movie title
+$(document.body).on('click', '.movieButton', function() {
 	movieTitle = $(this).attr("data-name");
 	// console.log(movieTitle);
 	$("#giphyDiv").empty();
@@ -37,9 +39,6 @@ $("#submitBtn").on("click", function(addMovie) {
 });
 
 
-// var still = "";
-// var animate = "";
-
 function getGiphy(i, title) {
 	// var title = $(this).attr("data-name");
 	var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=w6skDb3bVpSH3akfsKjgt2h2jfKq4Iou&q=" + title + "&limit=10&offset=0&rating=G&lang=en";
@@ -48,7 +47,7 @@ function getGiphy(i, title) {
       method: "GET"
     	}).done(function(response) {
     		var still = response.data[i].images.fixed_width_still.url;
-    		var animate = response.data[i].images.looping.mp4;
+    		var animate = response.data[i].images.fixed_width.url;
     		// console.log(still);
     		// console.log(animate);
     		var gifDiv = $("<div class='gifs panel panel-info'>");
@@ -68,10 +67,14 @@ function getGiphy(i, title) {
 	});
 };
 
-// This enables animation when the user clicks on the gif image, but there's a bug in the event listener.
+// This enables animation when the user clicks on the gif image
 $(document.body).on('click', '.gifImage', function() {
 	console.log("something was clicked");
-	var state = $(this).attr("data-state");
+	var t = $(this);	
+	var state = t.attr("data-state");
+	console.log(state);
+	console.log($(this).attr("src"));
+
 	if (state === "still") {
 	  $(this).attr("src", $(this).attr("data-animate"));
 	  $(this).attr("data-state", "animate");
@@ -80,8 +83,6 @@ $(document.body).on('click', '.gifImage', function() {
 	  $(this).attr("data-state", "still");
 	}
 });
-
-
 
 
 //this closes the (document).ready function.  Do not delete!

@@ -54,7 +54,7 @@ function getGiphy(i, title) {
     		var rating = response.data[i].rating;
     		var display = $("<p>").text("Rating: " + rating);
     		var labelNum = i + 1;
-    		var label = $("<h4>").text(title + " Gif #" + labelNum);
+    		var label = $("<h4>").text(title);
  	    	var stillImage = $("<img>");
  	    	stillImage.attr({"data-still":still, "data-animate":animate, "data-state":"still", "src":still, "id":title+"label"+i});
  	    	stillImage.addClass("btn btn-default gifImage");

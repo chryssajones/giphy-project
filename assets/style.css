@@ -1,6 +1,9 @@
 body {
 	margin: 40px;
-	background-color: #D3F8F9;
+	background: url(../assets/castle.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+    background-attachment: fixed;
 };
 
 .movieButton {
